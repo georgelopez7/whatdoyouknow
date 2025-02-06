@@ -21,7 +21,8 @@ services:
     volumes:
       - ./whatdoyouknow-server/database/migrations:/migrations
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
 
   whatdoyouknow-server:
     build: ./whatdoyouknow-server
@@ -35,8 +36,8 @@ services:
       OPENAI_API_KEY: ""
       USE_MOCK_DATA: "true"
     depends_on:
-      - postgres
-      - migrations
+      postgres:
+        condition: service_healthy
 
   whatdoyouknow-client:
     build: ./whatdoyouknow-client
@@ -51,5 +52,5 @@ services:
       NEXT_PUBLIC_WHATDOYOUKNOW_WEBSOCKET_URL: "ws://whatdoyouknow-server:8080"
       USE_MOCK_DATA: "true"
     depends_on:
-      - postgres
-      - migrations
+      postgres:
+        condition: service_healthy
