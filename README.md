@@ -79,8 +79,8 @@ whatdoyouknow-server:
       OPENAI_API_KEY: "<your-openai-api-key>" <---- add api key here
       NEXT_PUBLIC_USE_MOCK_DATA: "false" <---- change to false
     depends_on:
-      - postgres
-      - migrations
+      postgres:
+        condition: service_healthy
 ```
 
 Next, update the & `USE_MOCK_DATA` inside the **whatdoyouknow-server** service
@@ -99,8 +99,8 @@ whatdoyouknow-client:
       NEXT_PUBLIC_WHATDOYOUKNOW_WEBSOCKET_URL: "ws://whatdoy..."
       USE_MOCK_DATA: "false" <---- change to false
     depends_on:
-      - postgres
-      - migrations
+      postgres:
+        condition: service_healthy
 ```
 
 #### ✨ 4. That's it! Run the containers!
