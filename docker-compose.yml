@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U myuser  -d mydatabase"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  migrations:
+    image: ghcr.io/kukymbr/goose-docker:3.24.1
+    environment:
+      - GOOSE_DRIVER=postgres
+      - GOOSE_DBSTRING=host=postgres port=5432 user=myuser password=mypassword dbname=mydatabase
+    volumes:
+      - ./whatdoyouknow-server/database/migrations:/migrations
+    depends_on:
+      - postgres
+
+  whatdoyouknow-server:
+    build: ./whatdoyouknow-server
+    ports:
+      - "8080:8080"
+    environment:
+      SERVER_ENVIRONMENT: "development"
+      SERVER_AUTH_TOKEN: "12345"
+      POSTGRES_DB_URL: "postgresql://myuser:mypassword@postgres:5432/mydatabase?sslmode=disable"
+      ALLOWED_ORIGINS: "http://localhost:3000,http://127.0.0.1:3000,http://0.0.0.0:3000"
+      OPENAI_API_KEY: ""
+      USE_MOCK_DATA: "true"
+    depends_on:
+      - postgres
+      - migrations
+
+  whatdoyouknow-client:
+    build: ./whatdoyouknow-client
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: "development"
+      NEXT_PUBLIC_MAINTENANCE_MODE: "false"
+      NEXT_PUBLIC_HOST: "https://localhost:3000"
+      WHATDOYOUKNOW_SERVER_URL: "http://whatdoyouknow-server:8080"
+      WHATDOYOUKNOW_SERVER_TOKEN: "12345"
+      NEXT_PUBLIC_WHATDOYOUKNOW_WEBSOCKET_URL: "ws://whatdoyouknow-server:8080"
+      USE_MOCK_DATA: "true"
+    depends_on:
+      - postgres
+      - migrations
