@@ -1,6 +1,6 @@
 # whatdoyouknow
 
-This repository contains the code for **whatdoyouknow** project, a real-time multiplayer quiz game. Players supply the topic and AI creates the questions. The app uses WebSockets to provide instant updates and a smooth gameplay experience—all without requiring user logins.
+This repository contains the code for the **whatdoyouknow** project, a real-time multiplayer quiz game. Players supply the topic and AI creates the questions. The app uses WebSockets to provide instant updates and a smooth gameplay experience—all without requiring user logins.
 
 🚀 **Try it live:** [whatdoyouknow.dev](https://www.whatdoyouknow.dev/)
 
