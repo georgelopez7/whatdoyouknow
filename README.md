@@ -4,6 +4,14 @@ This repository contains the code for the **whatdoyouknow** project, a real-time
 
 🚀 **Try it live:** [whatdoyouknow.dev](https://www.whatdoyouknow.dev/)
 
+### Tech Stack
+
+- ⚡ **Frontend:** A Next.js 14 web application (`whatdoyouknow-client`).
+- 📦 **Backend:** A Go server (`whatdoyouknow-server`) built with Gin.
+- 🗄 **Database:** PostgreSQL for persistent storage.
+- 🔗 **Real-time Communication:** Gorilla WebSockets for instant game updates.
+- 🤖 **AI-Generated Questions:** ChatGPT API dynamically creates quiz questions based on player-chosen topics.
+
 ## 🐋 Run locally with Docker
 
 Follow these steps to set up and run the project using Docker.
