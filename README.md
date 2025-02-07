@@ -2,6 +2,8 @@
 
 This repository contains the code for **whatdoyouknow** project, a real-time multiplayer quiz game. Players supply the topic and AI creates the questions. The app uses WebSockets to provide instant updates and a smooth gameplay experience—all without requiring user logins.
 
+🚀 **Try it live:** [whatdoyouknow.dev](https://www.whatdoyouknow.dev/)
+
 ## 🐋 Run locally with Docker
 
 Follow these steps to set up and run the project using Docker.
